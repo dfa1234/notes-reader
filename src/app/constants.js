@@ -1,4 +1,4 @@
-SP_APP.KEYS = [
+export const KEYS = [
     {pos: 1, hz: 27.5, name: 'A0 Double Pedal A'},
     {pos: 2, hz: 29.1352, name: 'A♯0/B♭0'},
     {pos: 3, hz: 30.8677, name: 'B0'},

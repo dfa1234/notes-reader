@@ -1,43 +1,40 @@
-body {
-  color: #222;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: 300;
+.samples > div {
+    display: flex;
+    align-items: center;
+    padding-block: 3px; 
+}
+
+.samples > div > span {
+    flex-basis: 200px;
 }
 
 canvas {
-  border: 1px dashed gray;
+    border: 1px dashed gray;
 }
 
 [data-ref="note"] {
-  height: 30px;
-  font-size: 20px;
+    height: 30px;
+    font-size: 20px;
 }
-
 
 rect {
-  fill: transparent;
-  stroke: #555;
-  stroke-width: 1px;
-}
-
-text {
-  stroke: none;
-  fill: #ccc;
-  font-size: 12px;
+    fill: transparent;
+    stroke: #555;
+    stroke-width: 1px;
 }
 
 .piano-key {
-  transition: fill 150ms;
+    transition: fill 150ms;
 }
 
 .piano-key--ivory {
-  fill: snow;
+    fill: snow;
 }
 
 .piano-key--ebony {
-  fill: black;
+    fill: black;
 }
 
 .piano-key--lit {
-  fill: #2196f3;
+    fill: #2196f3;
 }

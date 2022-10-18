@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <title>Notes Reader</title>
-        <link rel="stylesheet" href="./water.min.css">
+        <link rel="stylesheet" href="./water.min.css" />
         <link rel="stylesheet" href="./main.css" />
     </head>
     <body>
@@ -12,24 +12,28 @@
 
             <button onclick="startMicrophone()">Open microphone</button>
 
-            <p>Mic audio <audio data-ref="mic_audio"></audio></p>
+            <div class="samples">
+                <div>
+                    <span>piano_40 (261.626 Hz)</span>
+                    <audio controls src="./samples/piano_40.wav"></audio>
+                </div>
 
-            <div>
-                <a href="./samples/piano_40.wav">piano_40 (261.626 Hz)</a>
-                <audio controls src="./samples/piano_40.wav"></audio>
+                <div>
+                    <span>piano_49 (440 Hz)</span>
+                    <audio controls src="./samples/piano_49.wav"></audio>
+                </div>
+
+                <div>
+                    <span>piano_53 (554.365 Hz)</span>
+                    <audio controls src="./samples/piano_53.wav"></audio>
+                </div>
+
+                <div>
+                    <span>piano_64 (1046.50 Hz)</span>
+                    <audio controls src="./samples/piano_64.wav"></audio>
+                </div>
             </div>
-            <div>
-                <a href="./samples/piano_49.wav">piano_49 (440 Hz)</a>
-                <audio controls src="./samples/piano_49.wav"></audio>
-            </div>
-            <div>
-                <a href="./samples/piano_53.wav">piano_53 (554.365 Hz)</a>
-                <audio controls src="./samples/piano_53.wav"></audio>
-            </div>
-            <div>
-                <a href="./samples/piano_64.wav">piano_64 (1046.50 Hz)</a>
-                <audio controls src="./samples/piano_64.wav"></audio>
-            </div>
+
             <div>
                 <p data-ref="note"></p>
             </div>
@@ -40,7 +44,8 @@
                 <canvas data-ref="canvas" width="1024" height="300"></canvas>
             </div>
 
-            <p data-ref="decibels">Volume</p>
+            <pre data-ref="decibels">Volume</pre>
+            <pre>Mic audio <audio data-ref="mic_audio"></audio></pre>
         </div>
 
         <script>

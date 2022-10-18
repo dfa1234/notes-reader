@@ -1,10 +1,8 @@
 {
-  "name": "sight-reader",
+  "name": "notes-reader",
   "version": "1.0.0",
-  "description": "",
-  "main": "src/index.html",
+  "main": "index.html",
   "scripts": {},
-  "author": "",
   "license": "ISC",
   "dependencies": {}
 }

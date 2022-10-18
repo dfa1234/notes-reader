@@ -150,7 +150,7 @@ export class Audio {
             }
 
             loudEnough = nowLoudEnough;
-            refs.db.textContent = volume;
+            refs.decibels.textContent = volume;
         };
 
         const renderAudio = () => {

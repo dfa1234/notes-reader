@@ -63,6 +63,7 @@
 
             const getKey = () => {
                 const pitch = this.pitchSamples.mode;
+                console.log(pitch)
                 let closestLower = KEYS[0];
                 let closestHigher = KEYS[KEYS.length - 1];
 
@@ -102,6 +103,7 @@
                 if (!loudEnough) return;
                 canvasContext.fillStyle = 'firebrick';
                 analyser.getByteTimeDomainData(dataArray);
+                //console.log('getByteTimeDomainData',dataArray)
                 canvasContext.fillRect(0, 128, 1024, 2);
 
                 let lastPos = 0;
@@ -121,11 +123,13 @@
 
                     lastItem = item;
                 });
+                console.log(this.pitchSamples)
             };
 
             const drawFreq = () => {
                 canvasContext.fillStyle = 'lightgray';
                 analyser.getByteFrequencyData(dataArray);
+                
                 let volumeTotal = 0;
                 canvasContext.fillRect(0, 300 - 256 / 10, 1024, 1);
 
@@ -136,7 +140,9 @@
 
                 const volume = volumeTotal / dataArray.length;
                 const nowLoudEnough = volume > MIN_VOLUME;
-
+                if(nowLoudEnough){
+                  //console.log('getByteFrequencyData',dataArray)
+                }
                 if (loudEnough !== nowLoudEnough) {
                     this.pitchSamples.empty();
                 }

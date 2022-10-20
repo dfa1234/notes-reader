@@ -2,17 +2,17 @@ body {
     margin-left: 50px;
 }
 
-.samples {
+#samples {
     margin-top: 12px;
 }
 
-.samples > div {
+#samples > div {
     display: flex;
     align-items: center;
     padding-block: 3px;
 }
 
-.samples > div > span {
+#samples > div > span {
     flex-basis: 200px;
 }
 
@@ -20,18 +20,9 @@ canvas {
     border: 1px dashed gray;
 }
 
-#note-display {
-    height: 30px;
-    font-size: 20px;
-}
-
-rect {
-    fill: transparent;
+.piano-key {
     stroke: #555;
     stroke-width: 1px;
-}
-
-.piano-key {
     transition: fill 150ms;
 }
 
@@ -45,19 +36,20 @@ rect {
 }
 
 .piano-key--ebony {
-    fill: black;
+    fill: #020000;
 }
 
 .piano-key--lit {
     fill: yellow;
 }
 
-.detected-key {
-    color: yellow;
-}
-
 .piano-key--play {
     fill: #2196f3;
+}
+
+.key-detected {
+    color: yellow;
+    font-size: 1.2em;
 }
 
 .mono {

@@ -16,7 +16,7 @@ const pitchSamples = new SmartArray();
 export const startAudio = () => {
     let audioReady = false;
     let loudEnough = false;
-    const MIN_VOLUME = 5;
+    const MIN_VOLUME = 7;
 
     const audioContext = new AudioContext();
     const audioEl = document.getElementById('microphone-capture');
@@ -60,7 +60,10 @@ export const startAudio = () => {
 
     const getKey = () => {
         const pitch = pitchSamples.mode;
-        console.log(pitch);
+
+        const notePitchElement = document.getElementById('note-pitch');
+        notePitchElement.textContent = pitch + ' hz';
+
         let closestLower = KEYS[0];
         let closestHigher = KEYS[KEYS.length - 1];
 
@@ -153,7 +156,7 @@ export const startAudio = () => {
         }
 
         loudEnough = nowLoudEnough;
-        decibelsEl.textContent = volume;
+        decibelsEl.textContent = volume.toFixed(2);
     };
 
     const renderAudio = () => {
@@ -174,8 +177,8 @@ export const startAudio = () => {
     }, 250);
 
     window.addEventListener('keydown', e => {
-        if (e.keyCode === 32) {
-            // space
+        if (e.code === 'Space') {
+            console.log('Pause');
             audioEl.paused ? audioEl.play() : audioEl.pause();
         }
     });

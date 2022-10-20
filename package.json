@@ -1,8 +1,12 @@
 {
-  "name": "notes-reader",
-  "version": "1.0.0",
-  "main": "index.html",
-  "scripts": {},
-  "license": "ISC",
-  "dependencies": {}
+    "name": "notes-reader",
+    "version": "1.0.0",
+    "main": "index.html",
+    "scripts": {
+        "start": "live-server . --host=10.0.0.15"
+    },
+    "license": "ISC",
+    "devDependencies": {
+        "live-server": "^1.2.2"
+    }
 }

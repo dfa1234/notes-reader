@@ -1,16 +1,15 @@
 import {KEYS} from './keys.js';
 
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
-const playNote = (frequencyInHz, duration, element) => {
+const getPlayNote = audioCtx => (frequencyInHz, duration, element) => {
     const oscillator = audioCtx.createOscillator();
     oscillator.frequency.value = frequencyInHz;
-    oscillator.type = 'sine';
+    oscillator.type = 'triangle';
+    //oscillator.type = 'square';
     const volume = audioCtx.createGain();
     oscillator.connect(volume);
     volume.connect(audioCtx.destination);
     // We can set & modify the gain knob
-    volume.gain.value = 0.2;
+    volume.gain.value = 0.5;
     oscillator.start();
     element.classList.add('piano-key--play');
     setTimeout(() => {
@@ -55,8 +54,10 @@ const getKeyDeets = keyPos => {
     return {shift, color};
 };
 
-export const renderPiano = () => {
+export const renderPiano = (audioCtx) => {
     const pianoEl = document.getElementById('piano');
+
+    const playNote = getPlayNote(audioCtx);
 
     const ns = 'http://www.w3.org/2000/svg';
     const whiteKeyGroup = document.createElementNS(ns, 'g');

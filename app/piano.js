@@ -55,85 +55,81 @@ const getKeyDeets = keyPos => {
     return {shift, color};
 };
 
-export class Piano {
-    render() {
-        // key dimensions from http://www.rwgiangiulio.com/construction/manual/
+export const renderPiano = () => {
+    const pianoEl = document.getElementById('piano');
 
-        const pianoEl = document.getElementById('piano');
+    const ns = 'http://www.w3.org/2000/svg';
+    const whiteKeyGroup = document.createElementNS(ns, 'g');
+    const blackKeyGroup = document.createElementNS(ns, 'g');
 
-        const ns = 'http://www.w3.org/2000/svg';
-        const whiteKeyGroup = document.createElementNS(ns, 'g');
-        const blackKeyGroup = document.createElementNS(ns, 'g');
+    let x = 0;
 
-        let x = 0;
+    KEYS.forEach((key, index) => {
+        const keyRect = document.createElementNS(ns, 'rect');
+        const keyDeets = getKeyDeets(index + 1);
+        const keyId = key.name.substring(0, 2).toLocaleLowerCase();
 
-        KEYS.forEach((key, index) => {
-            const keyRect = document.createElementNS(ns, 'rect');
-            const keyDeets = getKeyDeets(index + 1);
-            const keyId = key.name.substring(0, 2).toLocaleLowerCase();
-            console.log(keyDeets, key, x);
+        let height;
+        let width;
+        let newOffset;
+        let offsetText = 0;
 
-            let height;
-            let width;
-            let newOffset;
-            let offsetText = 0;
+        // explanation for dimension and offsets from http://www.rwgiangiulio.com/construction/manual/
+        if (keyDeets.color === COLORS.EBONY) {
+            height = 80;
+            width = 11;
 
-            if (keyDeets.color === COLORS.EBONY) {
-                height = 80;
-                width = 11;
-
-                if (keyDeets.shift === SHIFTS.LEFT) {
-                    newOffset = x - 7;
-                } else if (keyDeets.shift === SHIFTS.MIDDLE) {
-                    newOffset = x - 5;
-                } else if (keyDeets.shift === SHIFTS.RIGHT) {
-                    newOffset = x - 3;
-                }
-            } else {
-                height = 125;
-                width = 22;
-                newOffset = x;
-                x = x + width;
-
-                if (keyDeets.shift === SHIFTS.LEFT) {
-                    offsetText = -3;
-                } else if (keyDeets.shift === SHIFTS.MIDDLE) {
-                    offsetText = 0;
-                } else if (keyDeets.shift === SHIFTS.RIGHT) {
-                    offsetText = +3;
-                }
+            if (keyDeets.shift === SHIFTS.LEFT) {
+                newOffset = x - 7;
+            } else if (keyDeets.shift === SHIFTS.MIDDLE) {
+                newOffset = x - 5;
+            } else if (keyDeets.shift === SHIFTS.RIGHT) {
+                newOffset = x - 3;
+            }
+        } else {
+            height = 125;
+            width = 22;
+            newOffset = x;
+            if (keyDeets.shift === SHIFTS.LEFT) {
+                offsetText = -3;
+            } else if (keyDeets.shift === SHIFTS.MIDDLE) {
+                offsetText = 0;
+            } else if (keyDeets.shift === SHIFTS.RIGHT) {
+                offsetText = +3;
             }
 
-            const keyText = document.createElementNS(ns, 'text');
-            keyText.textContent = key.name.substring(0, 2);
-            keyText.setAttribute('x', newOffset + width / 2 + offsetText);
-            keyText.setAttribute('y', 10);
-            keyText.setAttribute('class', 'piano-key-text');
-            keyText.setAttribute('text-anchor', 'middle');
-            keyText.setAttribute('id', `key-text-${keyId}`);
+            x = x + width;
+        }
 
-            keyRect.setAttribute('rx', 2);
-            keyRect.setAttribute('x', newOffset);
-            keyRect.setAttribute('y', 14);
-            keyRect.setAttribute('width', width);
-            keyRect.setAttribute('height', height);
-            keyRect.setAttribute('id', `key-${keyId}`);
-            keyRect.classList.add('piano-key');
-            keyRect.classList.add(`piano-key--${keyDeets.color}`);
-            keyRect.addEventListener('click', () => {
-                playNote(key.hz, 200, keyRect);
-            });
+        const keyText = document.createElementNS(ns, 'text');
+        keyText.textContent = key.name.substring(0, 2);
+        keyText.setAttribute('x', newOffset + width / 2 + offsetText);
+        keyText.setAttribute('y', 10);
+        keyText.setAttribute('class', 'piano-key-text');
+        keyText.setAttribute('text-anchor', 'middle');
+        keyText.setAttribute('id', `key-text-${keyId}`);
 
-            if (keyDeets.color === COLORS.EBONY) {
-                blackKeyGroup.appendChild(keyText);
-                blackKeyGroup.appendChild(keyRect);
-            } else {
-                blackKeyGroup.appendChild(keyText);
-                whiteKeyGroup.appendChild(keyRect);
-            }
+        keyRect.setAttribute('rx', 2);
+        keyRect.setAttribute('x', newOffset);
+        keyRect.setAttribute('y', 14);
+        keyRect.setAttribute('width', width);
+        keyRect.setAttribute('height', height);
+        keyRect.setAttribute('id', `key-${keyId}`);
+        keyRect.classList.add('piano-key');
+        keyRect.classList.add(`piano-key--${keyDeets.color}`);
+        keyRect.addEventListener('click', () => {
+            playNote(key.hz, 200, keyRect);
         });
 
-        pianoEl.appendChild(whiteKeyGroup);
-        pianoEl.appendChild(blackKeyGroup);
-    }
-}
+        if (keyDeets.color === COLORS.EBONY) {
+            blackKeyGroup.appendChild(keyText);
+            blackKeyGroup.appendChild(keyRect);
+        } else {
+            blackKeyGroup.appendChild(keyText);
+            whiteKeyGroup.appendChild(keyRect);
+        }
+    });
+
+    pianoEl.appendChild(whiteKeyGroup);
+    pianoEl.appendChild(blackKeyGroup);
+};

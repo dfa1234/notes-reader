@@ -1,13 +1,12 @@
-import {Piano} from './piano.js';
-import {Audio} from './audio.js';
+import {renderPiano} from './piano.js';
+import {startAudio} from './audio.js';
 
-const piano = new Piano();
-piano.render();
+renderPiano();
 
-document.getElementById('allow-microphone-capture').addEventListener('click', () => {
+const btnMic = document.getElementById('allow-microphone-capture');
+
+btnMic.addEventListener('click', () => {
+    btnMic.style.display = 'none';
     document.getElementById('app-wrapper').style.display = 'block';
-    document.getElementById('allow-microphone-capture').style.display = 'none';
-
-    const audio = new Audio();
-    audio.start();
+    startAudio();
 });

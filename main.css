@@ -2,6 +2,10 @@ body {
     margin-left: 50px;
 }
 
+.samples {
+    margin-top: 12px;
+}
+
 .samples > div {
     display: flex;
     align-items: center;
@@ -54,4 +58,8 @@ rect {
 
 .piano-key--play {
     fill: #2196f3;
+}
+
+.mono {
+    font-family: monospace;
 }

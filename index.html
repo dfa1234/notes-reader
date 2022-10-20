@@ -10,10 +10,28 @@
         <div class="container">
             <h1>Notes reader</h1>
 
+            <p>
+                <svg id="piano" width="1200" height="150"></svg>
+            </p>
+
             <button id="allow-microphone-capture">Open microphone</button>
-            <audio id="microphone-capture"></audio>
 
             <div id="app-wrapper" style="display: none">
+                <audio id="microphone-capture"></audio>
+
+                <ul>
+                    <li>
+                        Detected key:
+                        <span id="note-display" class="detected-key mono"></span>
+                    </li>
+                    <li>
+                        Volume:
+                        <span id="decibels" class="mono"></span>
+                    </li>
+                </ul>
+
+                <canvas id="canvas" width="1024" height="300"></canvas>
+
                 <div class="samples">
                     <div>
                         <span>piano-40 (261.626 Hz)</span>
@@ -35,17 +53,6 @@
                         <audio controls src="./samples/piano-64.wav"></audio>
                     </div>
                 </div>
-
-                <p>
-                    <svg id="piano" width="1200" height="150"></svg>
-                </p>
-
-                <pre>
-                    Detected key: <span id="note-display" class="detected-key"></span>
-                    Volume: <span id="decibels"></span>
-                </pre>
-
-                <canvas id="canvas" width="1024" height="300"></canvas>
             </div>
         </div>
 

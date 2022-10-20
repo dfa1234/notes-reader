@@ -50,6 +50,8 @@ export const startAudio = () => {
     const getUserMediaError = err => {
         err && console.error(err);
     };
+    window.navigator.getUserMedia =
+        navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
 
     window.navigator.getUserMedia(userMediaConstraints, getUserMediaSuccess, getUserMediaError);
 

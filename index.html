@@ -10,52 +10,45 @@
         <div class="container">
             <h1>Notes reader</h1>
 
-            <button onclick="startMicrophone()">Open microphone</button>
+            <button id="allow-microphone-capture">Open microphone</button>
+            <audio id="microphone-capture"></audio>
 
-            <div class="samples">
-                <div>
-                    <span>piano_40 (261.626 Hz)</span>
-                    <audio controls src="./samples/piano_40.wav"></audio>
+            <div id="app-wrapper" style="display: none">
+                <div class="samples">
+                    <div>
+                        <span>piano-40 (261.626 Hz)</span>
+                        <audio controls src="./samples/piano-40.wav"></audio>
+                    </div>
+
+                    <div>
+                        <span>piano-49 (440 Hz)</span>
+                        <audio controls src="./samples/piano-49.wav"></audio>
+                    </div>
+
+                    <div>
+                        <span>piano-53 (554.365 Hz)</span>
+                        <audio controls src="./samples/piano-53.wav"></audio>
+                    </div>
+
+                    <div>
+                        <span>piano-64 (1046.50 Hz)</span>
+                        <audio controls src="./samples/piano-64.wav"></audio>
+                    </div>
                 </div>
 
-                <div>
-                    <span>piano_49 (440 Hz)</span>
-                    <audio controls src="./samples/piano_49.wav"></audio>
-                </div>
+                <p>
+                    <svg id="piano" width="1200" height="150"></svg>
+                </p>
 
-                <div>
-                    <span>piano_53 (554.365 Hz)</span>
-                    <audio controls src="./samples/piano_53.wav"></audio>
-                </div>
+                <pre>
+                    Detected key: <span id="note-display" class="detected-key"></span>
+                    Volume: <span id="decibels"></span>
+                </pre>
 
-                <div>
-                    <span>piano_64 (1046.50 Hz)</span>
-                    <audio controls src="./samples/piano_64.wav"></audio>
-                </div>
+                <canvas id="canvas" width="1024" height="300"></canvas>
             </div>
-
-            <div>
-                <p data-ref="note"></p>
-            </div>
-
-            <svg data-ref="piano" width="1200" height="200"></svg>
-
-            <div>
-                <canvas data-ref="canvas" width="1024" height="300"></canvas>
-            </div>
-
-            <pre data-ref="decibels">Volume</pre>
-            <pre>Mic audio <audio data-ref="mic_audio"></audio></pre>
         </div>
 
-        <script>
-            var SP_APP = {};
-        </script>
-        <script src="./app/start.js" type="module"></script>
-        <script>
-            startMicrophone = () => {
-                SP_APP.start();
-            };
-        </script>
+        <script src="./app/start-modules.js" type="module"></script>
     </body>
 </html>

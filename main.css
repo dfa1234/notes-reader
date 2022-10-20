@@ -1,7 +1,11 @@
+body {
+    margin-left: 50px;
+}
+
 .samples > div {
     display: flex;
     align-items: center;
-    padding-block: 3px; 
+    padding-block: 3px;
 }
 
 .samples > div > span {
@@ -12,7 +16,7 @@ canvas {
     border: 1px dashed gray;
 }
 
-[data-ref="note"] {
+#note-display {
     height: 30px;
     font-size: 20px;
 }
@@ -27,6 +31,11 @@ rect {
     transition: fill 150ms;
 }
 
+.piano-key-text {
+    font-size: 8px;
+    fill: gray;
+}
+
 .piano-key--ivory {
     fill: snow;
 }
@@ -36,5 +45,13 @@ rect {
 }
 
 .piano-key--lit {
+    fill: yellow;
+}
+
+.detected-key {
+    color: yellow;
+}
+
+.piano-key--play {
     fill: #2196f3;
 }

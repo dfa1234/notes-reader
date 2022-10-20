@@ -1,5 +1,5 @@
-import {SmartArray} from './smart.js';
-import {KEYS} from './constants.js';
+import {KEYS} from './keys.js';
+import {SmartArray} from './smart-array.js';
 
 export class Audio {
     constructor() {
@@ -17,15 +17,14 @@ export class Audio {
     }
 
     start() {
-        const {refs} = SP_APP;
         let audioReady = false;
         let loudEnough = false;
         const MIN_VOLUME = 5;
 
-        const ref = window.document.location.pathname.replace(/^\//, '');
-
-        const audioContext = new window.AudioContext();
-        let audioEl = refs[ref] || window.document.querySelector('audio');
+        const audioContext = new AudioContext();
+        const audioEl = document.getElementById('microphone-capture');
+        const canvasEl = document.getElementById('canvas');
+        const decibelsEl = document.getElementById('decibels');
         const analyser = audioContext.createAnalyser();
 
         const {sampleRate} = audioContext;
@@ -36,15 +35,14 @@ export class Audio {
         const bufferLength = analyser.frequencyBinCount;
         const dataArray = new Uint8Array(bufferLength);
 
-        const canvasContext = refs.canvas.getContext('2d');
-        // const canvas2Context = refs.canvas2.getContext('2d');
-        // this.drawPitchMarkers(canvas2Context);
+        const canvasContext = canvasEl.getContext('2d');
+        // this.drawPitchMarkers(canvasContext);
 
         const userMediaConstraints = {audio: true};
 
         const getUserMediaSuccess = stream => {
             const audioSource = audioContext.createMediaStreamSource(stream);
-            refs.mic_audio.src = audioSource;
+            audioEl.src = audioSource;
 
             audioSource.connect(analyser);
             // comment/uncomment to play to speakers
@@ -85,19 +83,27 @@ export class Audio {
 
         const renderKey = () => {
             const key = getKey();
-            // refs.note.textContent = `That was note number ${key.pos}: ${key.name}`;
 
-            // TODO (davidg): push this out into the Piano class
-            const keyEls = window.document.querySelectorAll('[piano-key]');
+            const noteTextElement = document.getElementById('note-display');
+            noteTextElement.textContent = key.name;
 
+            const keyEls = document.getElementsByClassName('piano-key');
             for (let keyEl of keyEls) {
-                keyEl.style.fill = '';
                 keyEl.classList.remove('piano-key--lit');
             }
 
-            const pressedKeyEl = SP_APP.refs[`key_${key.pos}`];
+            const keyTextEls = document.getElementsByClassName('piano-key-text');
+            for (let keyTextEl of keyTextEls) {
+                keyTextEl.classList.remove('piano-key--lit');
+            }
+
+            const keyId = key.name.substring(0, 2).toLocaleLowerCase();
+
+            const pressedKeyEl = document.getElementById(`key-${keyId}`);
+            const pressedKeyTextEl = document.getElementById(`key-text-${keyId}`);
             pressedKeyEl.classList.add('piano-key--lit');
-            // if (keyEl) keyEl.style.fill = '#2196f3';
+            pressedKeyTextEl.classList.add('piano-key--lit');
+
             this.pitchSamples.empty();
         };
 
@@ -125,7 +131,7 @@ export class Audio {
 
                 lastItem = item;
             });
-            console.log(this.pitchSamples);
+            //console.log(this.pitchSamples);
         };
 
         const drawFreq = () => {
@@ -150,7 +156,7 @@ export class Audio {
             }
 
             loudEnough = nowLoudEnough;
-            refs.decibels.textContent = volume;
+            decibelsEl.textContent = volume;
         };
 
         const renderAudio = () => {
